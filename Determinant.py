@@ -40,9 +40,35 @@ def determinant(matrix, n):
     return dt
 
 
+def upper_triangle_matrix(matrix, n):
+    for k in range(n):
+        for i in range(k+1, n):
+            if matrix[k][k] == 0:
+                matrix[k][k] == 1.0e-12
+
+            sc = matrix[i][k] / matrix[k][k]
+
+            # make elements 0
+            for j in range(n):
+                matrix[i][j] = matrix[i][j] - sc * matrix[k][j]
+    return matrix
+
+
+# Calculate Determinant via building Upper Triangle Matrix
+def faster_determinant(matrix, n):
+    M = upper_triangle_matrix(matrix, n)
+    printMatrix(M, n, n, "Upper Triangle Matrix:")
+
+    dt = 1
+    for i in range(n):
+        dt *= M[i][i]
+    return dt
+
+
 if __name__ == "__main__":
     matrix = readFromFile("Matrix1.txt")
     n = len(matrix)
 
     printMatrix(matrix, n, n, "Matrix")
     print("Determinant:", determinant(matrix, n))
+    print("Faster Determinant:", faster_determinant(matrix, n))
