@@ -57,15 +57,16 @@ def readFromFile(address):
         return M
 
 
-matrix = readFromFile("Matrix1.txt")
-n = len(matrix)
-printMatrix(matrix, n, n, "Matrix")
-print("------------------------")
-id_matrix = add_identity_matrix(matrix, n)
-printMatrix(id_matrix, n, 2*n, "Extended Matrix")
-print("------------------------")
-inverse_matrix = inverse(id_matrix, n)
-printMatrix(inverse_matrix, n, 2*n, "Function Result")
-print("------------------------")
-printInverseMatrix(inverse_matrix, n)
-print("------------------------")
+if __name__ == "__main__":
+    matrix = readFromFile("Matrix1.txt")
+    n = len(matrix)
+    printMatrix(matrix, n, n, "Matrix")
+    print("------------------------")
+    id_matrix = add_identity_matrix(matrix, n)
+    printMatrix(id_matrix, n, 2*n, "Extended Matrix")
+    print("------------------------")
+    inverse_matrix = inverse(id_matrix, n)
+    printMatrix(inverse_matrix, n, 2*n, "Function Result")
+    print("------------------------")
+    printInverseMatrix(inverse_matrix, n)
+    print("------------------------")
