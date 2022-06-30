@@ -5,9 +5,29 @@ def inverse(matrix, n):
         if abs(matrix[i][i]) < 1.0e-12:
             for j in range(i+1, n):
                 if abs(matrix[j][i]) > abs(matrix[i][i]):
-                        matrix[i], matrix[j] = matrix[j], matrix[i]
+                    matrix[i], matrix[j] = matrix[j], matrix[i]
 
-        
+        pivot = matrix[i][i]
+        if pivot == 0:
+            print("Error: Zero Division Detected")
+            return
+
+        for j in range(i, 2*n):
+            matrix[i][j] /= pivot
+
+        for j in range(n):
+            if i == j or matrix[j][i] == 0:
+                continue
+            factor = matrix[j][i]
+            for k in range(i, 2*n):
+                matrix[j][k] -= factor * matrix[i][k]
+    return matrix
+
+
+def printInverseMatrix(matrix, n):
+    print("Inverse Matrix:")
+    for a in matrix:
+        print(*["{0:0.3f}".format(i) for i in a[n:]])
 
 
 def printMatrix(matrix, a, b, label="Matrix"):
@@ -40,5 +60,12 @@ def readFromFile(address):
 matrix = readFromFile("Matrix1.txt")
 n = len(matrix)
 printMatrix(matrix, n, n, "Matrix")
-aug_matrix = add_identity_matrix(matrix, n)
-printMatrix(aug_matrix, n, 2*n, "Extended Matrix")
+print("------------------------")
+id_matrix = add_identity_matrix(matrix, n)
+printMatrix(id_matrix, n, 2*n, "Extended Matrix")
+print("------------------------")
+inverse_matrix = inverse(id_matrix, n)
+printMatrix(inverse_matrix, n, 2*n, "Function Result")
+print("------------------------")
+printInverseMatrix(inverse_matrix, n)
+print("------------------------")
